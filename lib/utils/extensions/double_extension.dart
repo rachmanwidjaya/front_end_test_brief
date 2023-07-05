@@ -5,4 +5,6 @@ extension DoubleExtension on double {
         decimalDigits: truncateToDouble() == this ? 0 : 2,
         symbol: '',
       ).format(this);
+  int getDecimalLength() =>
+      '$this'.split('.').isNotEmpty ? '$this'.split('.').last.length : 0;
 }

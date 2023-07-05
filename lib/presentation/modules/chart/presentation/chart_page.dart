@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forex_imf_tes/utils/extensions/context_extension.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:forex_imf_tes/utils/extensions/double_extension.dart';
 
 import '../../../../config/resources/app_colors.dart';
 import '../../../../data/repository_impl/api_repository/dart_io_api_repository_impl.dart';
 import '../../../../data/repository_impl/chart_repository_impl.dart';
-import '../../../../domain/entities/chart_candle_entity.dart';
+import '../../../../utils/ab_chart/ab_chart.dart';
 import '../../../bloc/wss_bloc.dart';
 import '../../../widgets/failed_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -182,170 +182,24 @@ class _ChartPageState extends State<ChartPage> {
                           ],
                         ),
                         Expanded(
-                          child: Stack(
-                            children: [
-                              SfCartesianChart(
-                                margin:
-                                    const EdgeInsets.only(right: 14, top: 10),
-                                plotAreaBorderWidth: 0,
-                                primaryXAxis: NumericAxis(
-                                  majorGridLines:
-                                      const MajorGridLines(width: 0),
-                                  edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                  isVisible: false,
-                                  minimum: 0,
-                                  maximum: 700,
-                                ),
-                                primaryYAxis: NumericAxis(
-                                  isVisible: true,
-                                  borderColor: Colors.transparent,
-                                  borderWidth: 0,
-                                  decimalPlaces: 4,
-                                  majorGridLines:
-                                      const MajorGridLines(width: 0),
-                                  labelAlignment: LabelAlignment.end,
-                                  opposedPosition: true,
-                                  axisLine: const AxisLine(width: 0),
-                                  majorTickLines: const MajorTickLines(size: 0),
-                                  maximum: state.maxValue,
-                                  minimum: state.minValue,
-                                ),
-                              ),
-                              SfCartesianChart(
-                                plotAreaBorderWidth: 0,
-                                primaryXAxis: NumericAxis(
-                                  majorGridLines:
-                                      const MajorGridLines(width: 0),
-                                  edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                  isVisible: false,
-                                  minimum: 0,
-                                  maximum: 700,
-                                ),
-                                primaryYAxis: NumericAxis(
-                                  isVisible: false,
-                                  decimalPlaces: 4,
-                                  labelAlignment: LabelAlignment.end,
-                                  opposedPosition: true,
-                                  axisLine: const AxisLine(width: 0),
-                                  majorTickLines: const MajorTickLines(size: 0),
-                                  maximum: state.maxValue,
-                                  minimum: state.minValue,
-                                ),
-                                series: [
-                                  ///A
-                                  LineSeries<ChartCandleEntity, double>(
-                                    color: context.primaryColor,
-                                    animationDuration: 0,
-                                    dataSource: state.data,
-                                    xValueMapper:
-                                        (ChartCandleEntity _, index) =>
-                                            index.toDouble(),
-                                    yValueMapper: (ChartCandleEntity data, _) =>
-                                        data.a,
-                                    width: 1,
-                                  ),
-                                  LineSeries<dynamic, dynamic>(
-                                    color: context.primaryColor,
-                                    animationDuration: 0,
-                                    width: 1,
-                                    dataSource: [
-                                      [state.data.length, state.data.last.a],
-                                      [
-                                        state.data.length + 130,
-                                        state.data.last.a
-                                      ],
-                                    ],
-                                    xValueMapper: (dynamic candleData, _) =>
-                                        candleData[0],
-                                    yValueMapper: (dynamic candleData, _) =>
-                                        candleData[1],
-                                  ),
-                                  LineSeries<dynamic, dynamic>(
-                                    animationDuration: 0,
-                                    dataLabelSettings: DataLabelSettings(
-                                      isVisible: true,
-                                      textStyle:
-                                          context.textTheme.bodySmall?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                      color: context.primaryColor,
-                                      labelAlignment:
-                                          ChartDataLabelAlignment.middle,
-                                      labelPosition:
-                                          ChartDataLabelPosition.outside,
-                                    ),
-                                    color: context.primaryColor,
-                                    width: 1,
-                                    dataSource: [
-                                      [
-                                        state.data.length + 200,
-                                        state.data.last.a
-                                      ],
-                                    ],
-                                    xValueMapper: (dynamic candleData, _) =>
-                                        candleData[0],
-                                    yValueMapper: (dynamic candleData, _) =>
-                                        candleData[1],
-                                  ),
-
-                                  ///B
-                                  LineSeries<ChartCandleEntity, double>(
-                                    color: AppColors.instance.sucsessDefault,
-                                    animationDuration: 0,
-                                    dataSource: state.data,
-                                    xValueMapper:
-                                        (ChartCandleEntity _, index) =>
-                                            index.toDouble(),
-                                    yValueMapper: (ChartCandleEntity data, _) =>
-                                        data.b,
-                                    width: 1,
-                                  ),
-                                  LineSeries<dynamic, dynamic>(
-                                    color: AppColors.instance.sucsessDefault,
-                                    width: 1,
-                                    animationDuration: 0,
-                                    dataSource: [
-                                      [state.data.length, state.data.last.b],
-                                      [
-                                        state.data.length + 130,
-                                        state.data.last.b
-                                      ],
-                                    ],
-                                    xValueMapper: (dynamic candleData, _) =>
-                                        candleData[0],
-                                    yValueMapper: (dynamic candleData, _) =>
-                                        candleData[1],
-                                  ),
-                                  LineSeries<dynamic, dynamic>(
-                                    animationDuration: 0,
-                                    dataLabelSettings: DataLabelSettings(
-                                      isVisible: true,
-                                      textStyle:
-                                          context.textTheme.bodySmall?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                      color: AppColors.instance.sucsessDefault,
-                                      labelAlignment:
-                                          ChartDataLabelAlignment.middle,
-                                      labelPosition:
-                                          ChartDataLabelPosition.outside,
-                                    ),
-                                    color: context.primaryColor,
-                                    width: 1,
-                                    dataSource: [
-                                      [
-                                        state.data.length + 200,
-                                        state.data.last.b
-                                      ],
-                                    ],
-                                    xValueMapper: (dynamic candleData, _) =>
-                                        candleData[0],
-                                    yValueMapper: (dynamic candleData, _) =>
-                                        candleData[1],
-                                  ),
-                                ],
-                              ),
-                            ],
+                          child: AbChartWidget(
+                            datas: state.data,
+                            lineWidth: 2,
+                            fractionDigits:
+                                state.data.last.a.getDecimalLength(),
+                            padding: const EdgeInsets.all(8),
+                            chartStyle: AbChartStyle(
+                              gridRows: 10,
+                              candleWidth: 1,
+                              candleLineWidth: 1,
+                              pointWidth: 10,
+                            ),
+                            chartColors: AbChartColors(
+                              aLineColor: AppColors.instance.primaryColor,
+                              aPriceColor: Colors.white,
+                              bLineColor: Colors.blue,
+                              bPriceColor: Colors.white,
+                            ),
                           ),
                         ),
                       ],

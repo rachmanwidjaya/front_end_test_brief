@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../entities/chart_candle_entity.dart';
+import '../../utils/ab_chart/ab_chart.dart';
 
 abstract class ChartRepository {
-  Future<Either<Exception, List<ChartCandleEntity>>> load();
+  Future<Either<Exception, List<AbEntity>>> load();
 }
