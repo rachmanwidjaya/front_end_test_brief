@@ -37,6 +37,18 @@ class AbModel extends AbEntity {
           ppms: j['ppms'] ?? false,
           t: DateTime.fromMillisecondsSinceEpoch(j['t']),
         );
+  AbModel.fromBinanceApi(List<dynamic> j)
+      : super(
+          a: double.parse(j[2]?.toString() ?? '0'),
+          b: double.parse(j[3]?.toString() ?? '0'),
+          s: '',
+          dc: j[1],
+          dd: j[4],
+          ppms: false,
+          t: DateTime.fromMillisecondsSinceEpoch(j[0]),
+        );
+  static List<AbEntity> parseXxxEntrie(List<dynamic> j) =>
+      List.from(j.map((e) => AbModel.fromBinanceApi(e)));
 
   static List<AbEntity> parseEntrie(List<dynamic> j) =>
       List.from(j.map((e) => AbModel.fromJson(e)));

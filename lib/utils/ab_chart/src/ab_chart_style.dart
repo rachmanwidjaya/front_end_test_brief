@@ -16,11 +16,11 @@ class AbChartStyle {
   final int gridRows, gridColumns;
   final double pointWidth, candleWidth, defaultTextSize;
   AbChartStyle({
-    this.pointWidth = 11,
+    this.pointWidth = 3,
     this.candleWidth = 8.5,
-    this.candleLineWidth = 1.5,
+    this.candleLineWidth = 10,
     this.gridRows = 5,
-    this.gridColumns = 4,
+    this.gridColumns = 10,
     this.defaultTextSize = 10,
   });
 }

@@ -40,7 +40,7 @@ class _AbChartRenderer extends _BaseAbChartRenderer<_AbSummary> {
         ..isAntiAlias = true
         ..style = PaintingStyle.stroke
         ..color = aColor
-        ..strokeWidth = ((lineWidth) / scaleX).clamp(0.5, lineWidth),
+        ..strokeWidth = ((lineWidth) / scaleX).clamp(0.3, lineWidth),
     );
     path.reset();
     path.moveTo(lastX, getY(lastPoint.b));

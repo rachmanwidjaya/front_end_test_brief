@@ -12,7 +12,7 @@ abstract class _BaseAbChartPainter extends CustomPainter {
   _BaseAbChartPainter({
     AbChartStyle? chartStyle,
     required this.datas,
-    this.scaleX = 1.0,
+    this.scaleX = 1,
     this.scrollX = 0,
     required this.padding,
   }) : chartStyle = chartStyle ?? AbChartStyle() {
@@ -37,12 +37,13 @@ abstract class _BaseAbChartPainter extends CustomPainter {
     canvas.clipRect(Rect.fromLTRB(0, 0, size.width, size.height));
     mDisplayHeight = size.height - padding.top - padding.bottom - 5;
     mWidth = size.width;
-    mMarginRight = (mWidth / chartStyle.gridColumns - mPointWidth) / scaleX;
+    // mMarginRight = (mWidth / chartStyle.gridColumns - mPointWidth) / scaleX;
+    mMarginRight = 100;
     initRect(size);
     calculateValue();
     initChartRenderer();
     canvas.save();
-    canvas.scale(1, 1);
+    canvas.scale(scaleX, 1);
     if (datas.isNotEmpty) {
       drawChart(canvas, size);
       drawRightText(canvas);

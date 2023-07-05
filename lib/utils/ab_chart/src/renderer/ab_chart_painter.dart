@@ -17,7 +17,7 @@ class _AbChartPainter extends _BaseAbChartPainter {
   })  : chartColors = chartColors ?? AbChartColors(),
         super(
           datas: datas,
-          scaleX: 0.5,
+          scaleX: 1,
           scrollX: 0,
         );
   static const int _dashWidth = 10;

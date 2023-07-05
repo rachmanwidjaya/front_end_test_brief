@@ -134,16 +134,22 @@ class _ChartPageState extends State<ChartPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                state.data.last.dc,
-                                style: context.textTheme.bodyLarge?.copyWith(
-                                  fontSize: 24,
+                              Expanded(
+                                child: Text(
+                                  state.data.last.dc,
+                                  style: context.textTheme.bodyLarge?.copyWith(
+                                    fontSize: 24,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              Text(
-                                state.data.last.dd,
-                                style: context.textTheme.bodyLarge?.copyWith(
-                                  fontSize: 24,
+                              Expanded(
+                                child: Text(
+                                  state.data.last.dd,
+                                  style: context.textTheme.bodyLarge?.copyWith(
+                                    fontSize: 24,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -184,15 +190,16 @@ class _ChartPageState extends State<ChartPage> {
                         Expanded(
                           child: AbChartWidget(
                             datas: state.data,
-                            lineWidth: 2,
+                            lineWidth: 1.5,
                             fractionDigits:
                                 state.data.last.a.getDecimalLength(),
                             padding: const EdgeInsets.all(8),
                             chartStyle: AbChartStyle(
-                              gridRows: 10,
-                              candleWidth: 1,
-                              candleLineWidth: 1,
-                              pointWidth: 10,
+                              // gridRows: 10, gridColumns: 10,
+                              // gridColumns: state.data.take(10).length,
+                              // candleWidth: 1,
+                              // candleLineWidth: 0.5,
+                              pointWidth: 1,
                             ),
                             chartColors: AbChartColors(
                               aLineColor: AppColors.instance.primaryColor,
